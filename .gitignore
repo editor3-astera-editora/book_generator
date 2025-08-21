@@ -1,0 +1,7 @@
+# Pastas 
+FEITO/
+__pycache__/
+resultados/
+
+# Arquivos 
+.env
