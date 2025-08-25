@@ -2,6 +2,7 @@
 FEITO/
 __pycache__/
 resultados/
+livros_originais/
 
 # Arquivos 
 .env
