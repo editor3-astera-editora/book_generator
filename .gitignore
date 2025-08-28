@@ -3,6 +3,12 @@ FEITO/
 __pycache__/
 resultados/
 livros_originais/
+resultados_enviados/
+proximos/
+teste/__pycache__
+modules/__pycache__
 
 # Arquivos 
 .env
+processamento_livros.log 
+upload_log.txt
