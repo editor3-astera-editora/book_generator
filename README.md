@@ -2,9 +2,9 @@
 
 ## Descrição
 
-O **Book Generator** é um sistema empresarial de processamento e geração automática de conteúdo educacional. Ele transforma livros em formato `.docx` em material didático estruturado, completo com resumos, exercícios e formatação LaTeX profissional.
+O **Book Generator** é um sistema de processamento e geração automática de conteúdo educacional. Ele transforma livros em formato `.docx` em material didático estruturado, completo com resumos, exercícios e formatação LaTeX profissional.
 
-O sistema utiliza tecnologias de IA (OpenAI GPT-4) e técnicas avançadas de RAG (Retrieval-Augmented Generation) para criar conteúdo educacional de alta qualidade, mantendo a coerência pedagógica e o rigor técnico necessários para materiais acadêmicos.
+O sistema utiliza tecnologias de IA (OpenAI GPT-4o) e técnicas avançadas de RAG (Retrieval-Augmented Generation) para criar conteúdo educacional de alta qualidade, mantendo a coerência pedagógica e o rigor técnico necessários para materiais acadêmicos.
 
 ## Arquitetura RAG (Retrieval-Augmented Generation)
 
@@ -140,7 +140,7 @@ book_generator/
 
 ### Software
 - Python 3.8 ou superior
-- Chave de API da OpenAI com acesso ao GPT-4
+- Chave de API da OpenAI com acesso ao GPT-4o
 - Dependências especificadas em `requirements.txt`
 
 ## Instalação e Configuração
@@ -161,7 +161,7 @@ pip install -r requirements.txt
 
 Crie um arquivo `.env` na raiz do projeto:
 ```env
-OPENAI_API_KEY=sk-...
+OPENAI_API_KEY=...
 ```
 
 4. **Verificação da Instalação**
@@ -278,10 +278,14 @@ top_n=5
 Os arquivos `.docx` devem seguir a estrutura:
 
 ```
-Unidade 1 - Capítulo 1: Título do Capítulo
+Unidade 1 - Capítulo 1
+
+Título do Capítulo
 [Conteúdo do capítulo]
 
-Unidade 1 - Capítulo 2: Outro Título
+Unidade 1 - Capítulo 2
+
+Outro Título
 [Conteúdo do capítulo]
 ```
 
@@ -294,17 +298,9 @@ O sistema implementa tratamento robusto de erros:
 - Logs detalhados de exceções com traceback completo
 - Movimentação segura de arquivos processados
 
-## Performance e Otimização
-
-### Benchmarks Típicos
-
-- Livro de 100 páginas: ~15-20 minutos
-- Consumo médio: ~50k tokens por capítulo
-- Precisão do RAG: >85% de relevância após reranking
-
 ### Recomendações de Otimização
 
-1. Ajuste `MAX_WORKERS` baseado em recursos disponíveis
+1. Ajuste `MAX_WORKERS` baseado em recursos disponíveis. Idealmente, com 20gb de memória ram recomendo o uso de no máximo 4 workers
 2. Configure rate limiting para evitar throttling da API
 3. Utilize cache local para embeddings recorrentes
 4. Monitore memória durante processamento de livros grandes
@@ -316,21 +312,7 @@ O sistema implementa tratamento robusto de erros:
 - Processamento local sem transmissão de dados além da API
 - Backup automático de arquivos originais
 
-## Limitações Conhecidas
+# Métricas conhecidas
 
-- Dependência de formato específico de entrada (.docx)
-- Custos associados ao uso da API OpenAI
-- Tempo de processamento proporcional ao tamanho do livro
-- Necessidade de revisão humana do conteúdo gerado
-
-## Suporte Técnico
-
-Para suporte técnico e questões empresariais, contate a equipe de desenvolvimento através dos canais internos da empresa.
-
-## Licença
-
-Software proprietário. Todos os direitos reservados. Uso restrito a funcionários autorizados.
-
----
-
-**Sistema empresarial para transformação digital de conteúdo educacional**
+- Em geral, a geração de um livro de exercícios de 120 páginas leva em torno de 55 minutos utilizando somente um worker. Para calcular o tempo final, faça: 55/n onde n é o número de workers que você está utilizando no projeto
+- O custo médio para um livro de 120 páginas é de $1.34 dólares, equivalente a R$ 7.37 na cotação atual e a quantidade de workers não influencia no custo final
