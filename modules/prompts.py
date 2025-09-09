@@ -47,6 +47,8 @@ No planejamento de aposentadoria, a **subtração** é usada para determinar o m
 
 **REGRAS PROIBIDAS:**
 - Não use meta-linguagem como "Um exemplo de aplicação é...". Inicie a frase diretamente, por exemplo: "Na indústria farmacêutica, o conceito de **[conceito-chave]** é usado para..."
+- Evite maneirismos de IA, metáforas, perguntas retóricas ou verbos informais.
+- Proibição de Juízo de Valor: não use adjetivos ou frases que denotem opinião (ex: 'fundamental', 'essencial', 'incrível').
 
 Contexto:
 {context}

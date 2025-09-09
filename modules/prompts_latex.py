@@ -184,10 +184,10 @@ Julgue as afirmativas a seguir e assinale a alternativa que apresenta a sequênc
 \end{{itemize}}
 \vspace{{5mm}}
 \begin{{itemize}}[labelsep=5.5mm, leftmargin=*]
-    \item[(A)] V - V
-    \item[(B)] V - F
-    \item[(C)] F - V
-    \item[(D)] F - F
+    \item[a)] V - V
+    \item[b)] V - F
+    \item[c)] F - V
+    \item[d)] F - F
 \end{{itemize}}
 \textcolor{{Gabarito}}{{(B) A afirmativa 2 é falsa porque [...].}}
 ---

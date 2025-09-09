@@ -57,7 +57,7 @@ def generate_structured_summary(retriever, key_concepts: list[str], book_name: s
 
     summary_generation_plan = [
         ("Introdução", SUMMARY_INTRO_PROMPT),
-        ("Aplicações Práticas", SUMMARY_APPLICATIONS_PROMPT),
+        ("Aplicações", SUMMARY_APPLICATIONS_PROMPT),
         ("Conceitos-Chave", SUMMARY_BULLETS_PROMPT),
         #("Principais conceitos", SUMMARY_MAIN_CONCEPTS_PROMPT),
     ]
@@ -67,7 +67,7 @@ def generate_structured_summary(retriever, key_concepts: list[str], book_name: s
 
         input_vars = {"context": full_context}
 
-        if part_name == "Aplicações Práticas":
+        if part_name == "Aplicações":
             input_vars["key_concepts_list"] = ", ".join(key_concepts)
             input_vars["book_name"] = book_name
         
@@ -81,8 +81,8 @@ def generate_structured_summary(retriever, key_concepts: list[str], book_name: s
         parts['Introdução'],
         #"\n### Principais conceitos",
         #parts['Principais conceitos'],
-        "\n### Aplicações Práticas",
-        parts['Aplicações Práticas'],
+        "\n### Aplicações",
+        parts['Aplicações'],
         "\n### Conceitos-Chave",
         parts['Conceitos-Chave']
     ]

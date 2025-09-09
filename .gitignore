@@ -12,3 +12,5 @@ modules/__pycache__
 .env
 processamento_livros.log 
 upload_log.txt
+
+processed_files.log
