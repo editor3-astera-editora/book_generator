@@ -51,6 +51,13 @@ def convert_exercise_to_latex(exercise_markdown: str) -> str:
     
     exercise_type = tipo_match.group(1).strip()
 
+    exercise_markdown = re.sub(
+        r'^\s*\(([a-zA-Z])\)', 
+        lambda m: f"({m.group(1).upper()})", 
+        exercise_markdown, 
+        flags=re.MULTILINE
+    )
+
     # 2. Mapear o tipo de exercício para o prompt correto
     prompt_map = {
         "Múltipla Escolha": LATEX_MC_PROMPT,

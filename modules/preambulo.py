@@ -232,8 +232,8 @@ MAIN_TEX_TEMPLATE = r"""
   left=33.295mm,
   right=33.295mm,
   top=60.595mm,
-  bottom=58.295mm,
-  footskip=3.8cm 
+  bottom=40.295mm,
+  footskip=1.9cm 
 }
 
 \newcommand{\sectiontoc}[1]{%
@@ -245,7 +245,6 @@ MAIN_TEX_TEMPLATE = r"""
   justification=centering,
   singlelinecheck=true,
   labelfont=bf,
-  textfont={color=gray!70}
 }
 
 \pagestyle{fancy}
@@ -254,7 +253,7 @@ MAIN_TEX_TEMPLATE = r"""
 \renewcommand{\footrulewidth}{0pt} 
 % O placeholder BOOK_NAME_PLACEHOLDER para Python usa chaves simples
 \fancyfoot[L]{\ifthenelse{\isodd{\value{page}}}{{livro_nome}}{\thepage}}
-\fancyfoot[R]{\ifthenelse{\isodd{\value{page}}}{\thepage}{{livro_nome}}
+\fancyfoot[R]{\ifthenelse{\isodd{\value{page}}}{\thepage}{{livro_nome}}}
 
 \begin{document}
 

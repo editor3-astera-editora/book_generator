@@ -545,3 +545,17 @@ A nova questão, suas alternativas e o gabarito devem ser 100% verificáveis usa
 Siga rigorosamente o formato de saída para o tipo de questão **{exercise_type}**.
 """
 
+CAPTION_FIGURE_PROMPT = """
+Você é um editor sênior criando o caption de uma figura em um livro didático. Para o capítulo com o título "{chapter_title}", crie uma legenda curta (1-2 frases) que comente o conteúdo que será abordado.
+
+REGRAS:
+- NUNCA mencione a palavra "imagem", "figura", "ilustração" ou "capítulo".
+- Foque no tema do capítulo.
+- A legenda deve explicar muito brevemente do que se trata o assunto.
+- Retorne SOMENTE o caption, sem aspas.
+
+Exemplo para um capítulo "O que são juros":
+"O cálculo de juros permite determinar o acréscimo sobre um valor inicial ao longo do tempo, variando conforme a taxa aplicada e o tipo de capitalização."
+
+Título do Capítulo: {chapter_title}
+"""

@@ -10,7 +10,7 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 from modules.utils import find_book_file, extrair_numeros_ord
 from modules.ingestion import extract_chapters_from_word, get_text_chunks
 from modules.rag_builder import create_chapter_vector_store, get_key_concepts
-from modules.generation import generate_structured_summary, generate_exercises
+from modules.generation import generate_structured_summary, generate_exercises, generate_figure_caption
 from modules.formatting import markdown_to_latex_string
 from modules.preambulo import PREAMBULO_TEX_CONTENT, MAIN_TEX_TEMPLATE
 from modules.preprocessar_formulas import criar_mapa_de_formulas
@@ -45,6 +45,12 @@ def processar_capitulo_worker(chapter_data, livro_nome, formula_map):
         # --- Seção de Geração (chamadas de API) ---
         chapter_tokens = {"prompt": 0, "completion": 0, "total": 0, "cost_usd": 0.0}
 
+        figure_caption = None
+        if chap == 1:
+            caption, tokens = generate_figure_caption(title)
+            figure_caption = caption
+            for key in chapter_tokens: chapter_tokens[key] += tokens.get(key, 0)
+
         key_concepts, tokens = get_key_concepts(chapter_text, livro_nome)
         if not key_concepts:
             logging.warning(f"{log_prefix} Não foi possível extrair conceitos-chave.")
@@ -59,7 +65,13 @@ def processar_capitulo_worker(chapter_data, livro_nome, formula_map):
 
         # --- Formatação Final ---
         chapter_markdown_content = f"{chapter_title_md}\n\n{summary}\n\n{exercises}"
-        latex_snippet = markdown_to_latex_string(chapter_markdown_content)
+
+        latex_snippet = markdown_to_latex_string(
+            markdown_text=chapter_markdown_content,
+            unit_number=unit,
+            chapter_number=chap,
+            figure_caption=figure_caption
+            )
         
         logging.info(f"{log_prefix} Processamento concluído com sucesso.")
 
@@ -106,7 +118,7 @@ def processar_livro(livro_path, livro_nome):
         logging.error(f"Não foi possível extrair capítulos do livro '{livro_nome}'. Pulando.")
         return
 
-    MAX_WORKERS = 2
+    MAX_WORKERS = 5
     resultados_capitulos = []
     
     with ProcessPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -152,12 +164,17 @@ def processar_livro(livro_path, livro_nome):
             partes_latex.append(f.read())
     final_latex_body = "\n\n".join(partes_latex)
 
-    final_tex_content = MAIN_TEX_TEMPLATE.replace("{BODY_PLACEHOLDER}", final_latex_body)
-    final_tex_content = final_tex_content.replace("{BOOK_NAME_PLACEHOLDER}", livro_nome.replace('_', ' '))
+    book_title = livro_nome.replace('_', ' ')
 
+     # Prepara o conteúdo do arquivo .tex principal substituindo o placeholder CORRETO
+    final_tex_content = MAIN_TEX_TEMPLATE.replace("{BODY_PLACEHOLDER}", final_latex_body)
+    final_tex_content = final_tex_content.replace("{livro_nome}", book_title) # CORRIGIDO
+
+    # Salva o Livro_Completo.tex processado
     tex_completo_path = os.path.join(pasta_final_tex, "Livro_Completo.tex")
     with open(tex_completo_path, "w", encoding="utf-8") as f:
         f.write(final_tex_content)
+        
     with open(os.path.join(pasta_final_tex, "preambulo.tex"), "w", encoding="utf-8") as f:
         f.write(PREAMBULO_TEX_CONTENT)
 

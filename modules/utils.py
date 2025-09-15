@@ -19,9 +19,19 @@ def find_book_file(directory: str) -> tuple[str | None, str | None]:
         print(f"ERRO: O diretório '{directory}' não foi encontrado.")
         return None, None
     
+#def extrair_numeros_ord(nome_arquivo):
+#    """Função auxiliar para extrair números de unidade e capítulo para ordenação."""
+#    match = re.search(r'U(\d+)_C(\d+)', nome_arquivo)
+#    if match:
+#        return (int(match.group(1)), int(match.group(2)))
+#    return (0, 0)
+
 def extrair_numeros_ord(nome_arquivo):
-    """Função auxiliar para extrair números de unidade e capítulo para ordenação."""
-    match = re.search(r'U(\d+)_C(\d+)', nome_arquivo)
+    """
+    Função auxiliar para extrair números de unidade e capítulo para ordenação.
+    Agora aceita tanto 'U1_C1' quanto 'U1-C1'.
+    """
+    match = re.search(r'U(\d+)[-_]C(\d+)', nome_arquivo)
     if match:
         return (int(match.group(1)), int(match.group(2)))
     return (0, 0)

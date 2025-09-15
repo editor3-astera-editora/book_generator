@@ -18,7 +18,8 @@ from modules.prompts import (
     MULTIPLE_CHOICE_PROMPT, DISCURSIVE_PROMPT, OPEN_ENDED_CALC_DRAW_PROMPT,
     OPEN_ENDED_SCENARIO_PROMPT, EXERCISE_CALC_CHECK_PROMPT, 
     REVISE_EXERCISES_SIMILARITY_PROMPT, TRUE_FALSE_PROMPT,
-    FORMULA_EXTRACTOR_PROMPT, FORMULA_VALIDATION_PROMPT
+    FORMULA_EXTRACTOR_PROMPT, FORMULA_VALIDATION_PROMPT,
+    CAPTION_FIGURE_PROMPT
 )
 
 def _call_llm_with_tracking(prompt_template: str, input_variables: dict, temperature: float = 0.2) -> tuple[str, dict]:
@@ -251,3 +252,16 @@ def generate_exercises(retriever, key_concepts: list[str], formula_map: list, cu
     return "## Exercícios\n\n" + "\n\n---\n\n".join(final_exercise_texts), total_token_info
 
 
+def generate_figure_caption(chapter_title: str) -> tuple[str, dict]:
+    """Gera uma legenda para a figura de abertura da unidade."""
+    print(f"   - Gerando legenda para a figura de abertura (Título: {chapter_title})...")
+    
+    input_vars = {"chapter_title": chapter_title}
+    
+    caption, token_info = _call_llm_with_tracking(
+        CAPTION_FIGURE_PROMPT,
+        input_vars,
+        temperature=0.6
+    )
+    
+    return caption, token_info

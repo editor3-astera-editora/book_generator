@@ -55,10 +55,10 @@ Qual é o único número primo entre 10 e 20?
 **Sua Saída LaTeX:**
 \item Qual é o único número primo entre 10 e 20?
 \begin{{itemize}}
-   \item[a)] 12
-   \item[b)] 15
-   \item[c)] 17
-   \item[d)] 19
+   \item[A)] 12
+   \item[B)] 15
+   \item[C)] 17
+   \item[D)] 19
 \end{{itemize}}
 
 \textcolor{{Gabarito}}{{(C) 17 é o único número na lista que só é divisível por 1 e por ele mesmo.}}
@@ -184,10 +184,10 @@ Julgue as afirmativas a seguir e assinale a alternativa que apresenta a sequênc
 \end{{itemize}}
 \vspace{{5mm}}
 \begin{{itemize}}[labelsep=5.5mm, leftmargin=*]
-    \item[a)] V - V
-    \item[b)] V - F
-    \item[c)] F - V
-    \item[d)] F - F
+    \item[A)] V - V
+    \item[B)] V - F
+    \item[C)] F - V
+    \item[D)] F - F
 \end{{itemize}}
 \textcolor{{Gabarito}}{{(B) A afirmativa 2 é falsa porque [...].}}
 ---

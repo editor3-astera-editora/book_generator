@@ -7,6 +7,12 @@ resultados_enviados/
 proximos/
 teste/__pycache__
 modules/__pycache__
+teste/main_debug.py 
+teste/run_tests.py 
+teste/test_figura.py 
+teste/test_trace_caption.py 
+teste/testar_juncao.py 
+teste/teste_reranking.py 
 
 # Arquivos 
 .env
@@ -14,3 +20,5 @@ processamento_livros.log
 upload_log.txt
 
 processed_files.log
+
+nul

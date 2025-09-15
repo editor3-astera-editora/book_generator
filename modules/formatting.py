@@ -34,7 +34,7 @@ def _processar_bloco_conceitos_chave(match):
 
     return bloco_final
 
-def markdown_to_latex_string(markdown_text: str) -> str:
+def markdown_to_latex_string(markdown_text: str, unit_number: int, chapter_number: int, figure_caption: str = None) -> str:
     """
     Converte o Markdown de UM ÚNICO capítulo para o formato LaTeX.
     Retorna uma string contendo o corpo LaTeX APENAS para este capítulo.
@@ -51,7 +51,7 @@ def markdown_to_latex_string(markdown_text: str) -> str:
     # 1. Processa o título principal do capítulo
     processed_text = re.sub(r'^#\s*Unidade\s+\d+\s*[-–]\s*Capítulo\s+\d+:\s*(.*)', r'\\sectiontoc{\1}', main_content, flags=re.MULTILINE)
 
-    # 2. Processa "Conceitos-Chave" com a LLM
+    # 2. Processa "Conceitos-Chave" com a LLM (ANTES de adicionar a figura)
     conceitos_chave_pattern = re.compile(
         r'^\s*###\s*Conceitos-Chave\s*\n(.*?)(?=\n^\s*###?|\Z)',
         re.MULTILINE | re.DOTALL
@@ -66,8 +66,41 @@ def markdown_to_latex_string(markdown_text: str) -> str:
     processed_text = re.sub(r'\*\*(.*?)\*\*', r'\\textbf{\1}', processed_text)
     greek_pattern = re.compile("|".join(GREEK_SYMBOLS_MAP.keys()))
     processed_text = greek_pattern.sub(lambda m: GREEK_SYMBOLS_MAP[m.group(0)], processed_text)
+    
+    # 5. ADICIONAR A FIGURA APÓS TODOS OS PROCESSAMENTOS DE TEXTO
+    if chapter_number == 1 and figure_caption:
+        def escape_latex(text: str) -> str:
+            replacements = {
+                '&': r'\&', '%': r'\%', '$': r'\$', '#': r'\#',
+                '_': r'\_', '{': r'\{', '}': r'\}',
+            }
+            regex = re.compile('([&%$#_{}])')
+            return regex.sub(lambda match: replacements.get(match.group(1), ''), text)
 
-    # 5. Processa a SEÇÃO DE EXERCÍCIOS do capítulo, se existir
+        safe_caption = escape_latex(figure_caption)
+
+        # Encontrar onde inserir a figura (logo após \sectiontoc)
+        # Vamos inserir após a primeira quebra de linha depois de \sectiontoc
+        lines = processed_text.split('\n')
+        for i, line in enumerate(lines):
+            if '\\sectiontoc' in line:
+                # Inserir a figura na próxima linha
+                figure_block = f"""
+\\begin{{figure}}[h!]
+\\centering
+\\begin{{overpic}}[width=0.5\\textwidth]{{figura{unit_number}.jpg}}
+    \\put(100,2){{%
+        \\makebox[0pt][r]{{\\tiny @ Freepik}}
+    }}
+\\end{{overpic}}
+{{\\fontsize{{11}}{{11}}\\selectfont
+\\caption*{{{safe_caption}}}}}
+\\end{{figure}}"""
+                lines.insert(i + 1, figure_block)
+                processed_text = '\n'.join(lines)
+                break
+
+    # 6. Processa a SEÇÃO DE EXERCÍCIOS do capítulo, se existir
     processed_exercises_section = ""
     if exercises_markdown:
         exercise_items = exercises_markdown.strip().split('---\n\n')
