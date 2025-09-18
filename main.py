@@ -118,7 +118,7 @@ def processar_livro(livro_path, livro_nome):
         logging.error(f"Não foi possível extrair capítulos do livro '{livro_nome}'. Pulando.")
         return
 
-    MAX_WORKERS = 5
+    MAX_WORKERS = 4
     resultados_capitulos = []
     
     with ProcessPoolExecutor(max_workers=MAX_WORKERS) as executor:

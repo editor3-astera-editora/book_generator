@@ -554,8 +554,13 @@ REGRAS:
 - A legenda deve explicar muito brevemente do que se trata o assunto.
 - Retorne SOMENTE o caption, sem aspas.
 
-Exemplo para um capítulo "O que são juros":
-"O cálculo de juros permite determinar o acréscimo sobre um valor inicial ao longo do tempo, variando conforme a taxa aplicada e o tipo de capitalização."
+Exemplos de bons resultados: 
+
+1. Para um capítulo de título: "O que são juros":
+O cálculo de juros permite determinar o acréscimo sobre um valor inicial ao longo do tempo, variando conforme a taxa aplicada e o tipo de capitalização.
+
+2. Para um capítulo de título: "O sistema elétrico brasileiro":
+O sistema elétrico brasileiro integra geração, transmissão e distribuição de energia, garantindo suprimento confiável e atendimento às normas regulatórias.
 
 Título do Capítulo: {chapter_title}
 """
