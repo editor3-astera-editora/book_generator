@@ -1,12 +1,3 @@
-# Prompt para extrair os conceitos-chave de um capítulo
-#KEY_CONCEPTS_PROMPT = """
-#Com base no texto do capítulo a seguir, extraia uma lista dos 5 a 7 conceitos-chave mais importantes.
-#Retorne apenas uma lista em formato JSON. Ex: ["Conceito 1", "Conceito 2"]
-#
-#Texto do Capítulo:
-#{chapter_text}
-#"""
-
 KEY_CONCEPTS_PROMPT = """
 Você é um editor acadêmico sênior criando um guia de estudos.
 
@@ -75,42 +66,6 @@ SUMMARY_BULLETS_PROMPT = "Baseado no contexto a seguir, identifique de 3 a 5 con
 
 # Prompt para averiguar a presença de fórmulas
 SUMMARY_FORMULA_CHECK_PROMPT = "O 'Texto Fonte' a seguir contém alguma fórmula matemática ou científica escrita de forma explícita (ex: E=mc^2, M = P(1+i)^n)? Responda apenas 'SIM' ou 'NÃO'. Não considere a menção de conceitos matemáticos, apenas fórmulas explícitas.\n\nTexto Fonte: {context}"
-
-# Prompt para questões de múltipla escolha
-#MULTIPLE_CHOICE_PROMPT = """
-#Você é um designer instrucional sênior, especialista em criar avaliações que testam o raciocínio crítico. Baseado exclusivamente no Texto Fonte, crie uma questão de múltipla escolha desafiadora sobre o **{concept}**.
-#
-#**REGRAS OBRIGATÓRIAS:**
-#1. Crie um enunciado contextualizado e completo, que apresente um cenário ou uma afirmação a ser analisada, em vez de uma pergunta direta.
-#2. Gere exatamente 5 alternativas (A-E). Apenas UMA deve ser correta. As outras quatro devem ser "distratores" inteligentes, baseados em erros conceituais comuns.
-#3. A dificuldade deve ser moderada, exigindo que o aluno aplique o conhecimento do texto, não apenas o localize.
-#4. A justificativa da resposta correta deve ser uma **única frase, clara e direta.**
-#5. **REGRA DE OURO - FIDELIDADE AO TEXTO:** Você está estritamente proibido de usar qualquer informação, sinônimo, exemplo ou conceito que não esteja explicitamente escrito no 'Texto Fonte' fornecido. A pergunta, todas as alternativas (corretas e incorretas) e a justificativa/resposta ideal devem ser 100% baseadas e verificáveis apenas com o conteúdo do 'Texto Fonte'.
-#5. O Tipo SEMPRE deve ser Múltipla Escolha
-#
-#**REGRAS PROIBIDAS:**
-#- O enunciado não deve usar verbos que peçam uma descrição ou dissertação, como "Descreva", "Explique", "Discorra sobre".
-#- **NÃO use frases que façam referência ao material de estudo**, como "de acordo com o texto" ou "considerando os dados apresentados".
-#
-#**Texto Fonte:**
-#{context}
-#---
-#**Formato de Saída OBRIGATÓRIO (use Markdown e os marcadores ---):**
-#
-#---
-#**Tipo:** Múltipla Escolha
-#**Nível Cognitivo:** {bloom_level}
-#**Pergunta:**
-#[Enunciado completo e contextualizado aqui]
-#**Alternativas:**
-#(A) [Texto da alternativa A]
-#(B) [Texto da alternativa B]
-#(C) [Texto da alternativa C]
-#(D) [Texto da alternativa D]
-#(E) [Texto da alternativa E]
-#**Resposta Correta:** (X)
-#**Justificativa:** [Explicação breve e direta em uma única frase.]
-#"""
 
 MULTIPLE_CHOICE_PROMPT = """
 Você é um avaliador acadêmico rigoroso. Sua tarefa é criar uma questão de múltipla escolha sobre o **{concept}**.
@@ -181,38 +136,6 @@ Você é um designer instrucional sênior. Baseado exclusivamente no Texto Fonte
 ---
 """
 
-# Prompt para questão de cálculo ou desenho
-#OPEN_ENDED_CALC_DRAW_PROMPT = """
-#Você é um designer instrucional sênior. Baseado exclusivamente no Texto Fonte, crie uma **questão aberta** que exija a aplicação prática do **{concept}** através de um cálculo.
-#
-#**REGRAS OBRIGATÓRIAS:**
-#1.  **SIMPLICIDADE:** Crie um problema que use a fórmula de forma direta e com poucas etapas.
-#2.  **NÚMEROS SIMPLES:** Use números inteiros ou de fácil cálculo para os exemplos.
-#3.  **OBJETIVO:** O foco é testar a aplicação direta da fórmula, não a resolução de problemas matemáticos complexos.
-#
-#**REGRAS GERAIS:**
-#1. Formule um problema que force o aluno a aplicar uma fórmula que esteja explicitamente presente no Texto Fonte fornecido.
-#2. A questão deve ser autossuficiente e conter todos os dados necessários para sua resolução.
-#3. **REGRA DE OURO - FIDELIDADE AO TEXTO:** Você está estritamente proibido de usar qualquer informação, sinônimo, exemplo ou conceito que não esteja explicitamente escrito no 'Texto Fonte' fornecido. A pergunta, todas as alternativas (corretas e incorretas) e a justificativa/resposta ideal devem ser 100% baseadas e verificáveis apenas com o conteúdo do 'Texto Fonte'.
-#
-#**REGRAS PROIBIDAS:**
-#- **NÃO use fórmulas que não estejam contidas no Texto Fonte.**
-#- **NÃO use frases que façam referência ao material de estudo**, como "use as faixas de imposto de renda fornecidas", "de acordo com o texto" ou "conforme visto no capítulo".
-#
-#**Texto Fonte:**
-#{context}
-#---
-#**Formato de Saída OBRIGATÓRIO (use Markdown e os marcadores ---):**
-#
-#---
-#**Tipo:** Questão Aberta (Cálculo/Desenho)
-#**Nível Cognitivo:** {bloom_level}
-#**Pergunta:**
-#[Descrição do problema ou cenário prático aqui]
-#**Resolução (Gabarito):**
-#Apresentação da fórmula (se aplicável), substituição de valores, e a resolução passo a passo, de forma direta e objetiva.]
-#"""
-
 OPEN_ENDED_CALC_DRAW_PROMPT = """
 Você é um avaliador acadêmico rigoroso. Sua tarefa é criar uma **questão aberta** que exija a aplicação prática do **{concept}** através de um cálculo, baseando-se em fórmulas e cenários do texto.
 
@@ -244,37 +167,6 @@ Você é um avaliador acadêmico rigoroso. Sua tarefa é criar uma **questão ab
 **Resolução (Gabarito):**
 [Apresentação da fórmula (exatamente como no texto), substituição de valores, e a resolução passo a passo, de forma direta e objetiva.]
 """
-
-# Prompt para questões baseadas em CENÁRIOS 
-#OPEN_ENDED_SCENARIO_PROMPT = """
-#Você é um designer instrucional sênior criando uma questão discursiva simples. Baseado exclusivamente no Texto Fonte, crie uma **questão aberta e direta** sobre o **{concept}**.
-#
-#**REGRAS OBRIGATÓRIAS:**
-#1.  A pergunta deve se basear em um único ponto. Use verbos de comando de baixa complexidade como "O que é...", "Descreva...", "Liste as características de...", "Qual a finalidade de...".
-#2.  A pergunta deve conter enunciado completo com um desenvolvimento que leve o aluno a resposta.
-#2.  **FOCO NA MEMORIZAÇÃO E ENTENDIMENTO:** O objetivo é verificar se o aluno se lembra e entendeu um conceito-chave do texto. A pergunta NÃO deve exigir análise complexa, comparação com outros conceitos ou a solução de um problema com múltiplas etapas.
-#3.  **CENÁRIO OPCIONAL E SIMPLES:** Se um cenário for usado, ele deve ser mínimo e servir apenas para contextualizar a pergunta (ex: "Em um projeto, por que o conceito de X é importante?").
-#4.  **RESPOSTA DIRETA:** A resposta ideal no gabarito deve ser uma explicação concisa (1-3 frases) que poderia ser encontrada quase que literalmente no Texto Fonte.
-#5.  **TIPO DA QUESTÃO:** O TIPO da questão sempre deve ser: Questão Aberta (Cenário Aplicado)
-#6. **REGRA DE OURO - FIDELIDADE AO TEXTO:** Você está estritamente proibido de usar qualquer informação, sinônimo, exemplo ou conceito que não esteja explicitamente escrito no 'Texto Fonte' fornecido. A pergunta e a resposta devem ser TOTALMENTE baseadas e verificáveis apenas com o conteúdo 'Texto Fonte'.
-#
-#**REGRAS PROIBIDAS:**
-#- Não crie estudos de caso complexos ou problemas que exijam que o aluno "tome uma decisão".
-#- Evite perguntas que comecem com "Como você faria..." ou "Analise o seguinte caso...".
-#
-#**Texto Fonte:**
-#{context}
-#---
-#**Formato de Saída OBRIGATÓRIO (use Markdown e os marcadores ---):**
-#
-#---
-#**Tipo:** Questão Aberta (Cenário Aplicado)
-#**Nível Cognitivo:** {bloom_level}
-#**Pergunta:**
-#[Texto da pergunta direta e simples aqui]
-#**Resolução (Gabarito):**
-#[Descrição da resposta esperada, de forma direta e objetiva.]
-#"""
 
 OPEN_ENDED_SCENARIO_PROMPT = """
 Você é um avaliador acadêmico rigoroso. Sua tarefa é criar uma **questão aberta e direta** sobre o **{concept}** a partir de um cenário simples.
@@ -308,42 +200,6 @@ Você é um avaliador acadêmico rigoroso. Sua tarefa é criar uma **questão ab
 **Resolução (Gabarito):**
 [Descrição da resposta esperada, de forma direta e objetiva, extraída do Texto-Fonte.]
 """
-
-
-#TRUE_FALSE_PROMPT = """
-#Você é um designer instrucional sênior. Baseado exclusivamente no Texto Fonte sobre o **{concept}**, crie uma questão de Verdadeiro ou Falso.
-#
-#**REGRAS OBRIGATÓRIAS:**
-#1. Crie um conjunto de 4 a 5 afirmativas curtas sobre o conceito. Algumas devem ser verdadeiras, outras falsas.
-#2. As afirmativas falsas devem se basear em erros conceituais comuns.
-#3. Crie 5 alternativas de múltipla escolha (A-E) que representem as sequências de julgamento (ex: V - F - V - F). Apenas uma alternativa deve estar correta.
-#4. Forneça a justificativa para CADA afirmativa falsa.
-#
-#**REGRAS PROIBIDAS:**
-#- **NÃO use frases que façam referência ao material de estudo**, como "baseado no cenário descrito no capítulo" ou "conforme o conceito apresentado".
-#
-#**Texto Fonte:**
-#{context}
-#---
-#**Formato de Saída OBRIGATÓRIO (use Markdown e os marcadores ---):**
-#
-#---
-#**Tipo:** Verdadeiro ou Falso
-#**Nível Cognitivo:** {bloom_level}
-#**Pergunta:**
-#Julgue as afirmativas a seguir sobre {concept} e assinale a alternativa que apresenta a sequência correta.
-#( ) [Texto da primeira afirmativa]
-#( ) [Texto da segunda afirmativa]
-#( ) [Texto da terceira afirmativa]
-#**Alternativas:**
-#(A) V - V - F
-#(B) V - F - V
-#(C) F - V - F
-#(D) F - F - V
-#(E) V - V - V
-#**Resposta Correta:** (B)
-#**Justificativa:** A segunda afirmativa é falsa porque [...]. A terceira afirmativa é verdadeira porque [...].
-#"""
 
 TRUE_FALSE_PROMPT = """
 Você é um avaliador acadêmico rigoroso. Sua tarefa é criar uma questão de **Verdadeiro ou Falso** sobre o **{concept}**.
@@ -463,20 +319,6 @@ Sua tarefa é atuar como um especialista no conteúdo e analisar o texto para ex
 {chapter_text}
 """
 
-# Prompt de revisão de exercícios 
-#REVISE_EXERCISES_SIMILARITY_PROMPT = """
-#Você é um revisor pedagógico especialista. Analise a lista de exercícios fornecida abaixo.
-#Sua tarefa é identificar se existem duas ou mais questões que são muito simliares ou pedagogicamente redundantes (avaliam exatamente o mesmo ponto da mesma maneira.)
-#
-#**Exercícios Gerados:**
-#{exercise_list}
-#
-#---
-#**Sua Resposta:**
-#Se todas as questões forem suficientemente distintas, responda apenas com a palavra "NENHUM".
-#Se você encontrar uma questão que é muito similar a outra, responda apenas com o número (índice) da questão que deve ser refeita. Por exemplo, se a Questão 3 for muito parecida com a Questão 1, responda apenas: 3 
-#"""
-
 REVISE_EXERCISES_SIMILARITY_PROMPT = """
 Você é um revisor pedagógico especialista. Sua tarefa é analisar a lista de exercícios abaixo para identificar redundância pedagógica.
 
@@ -495,28 +337,6 @@ Avalie se duas ou mais questões são excessivamente similares com base em:
 Se todas as questões forem suficientemente distintas, responda apenas com a palavra "NENHUM".
 Se você encontrar uma questão que é muito similar a outra, responda apenas com o número (índice) da questão que deve ser refeita. Por exemplo, se a Questão 3 for muito parecida com a Questão 1, responda apenas: 3 
 """
-
-# Prompt para reescrever uma questão similar 
-#EXERCISE_REWRITING_PROMPT = """
-#Você é um designer instrucional sênior. Sua tarefa é criar uma nova questão do tipo **{exercise_type}** sobre o **{concept}**, com base no Texto Fonte.
-#
-#**CONTEXTO CRÍTICO:** A versão anterior da questão, mostrada abaixo, foi rejeitada por ser muito similar a outras questões.
-#
-#**Questão Rejeitada:**
-#---
-#{original_question}
-#---
-#
-#**SUA TAREFA:**
-#Crie uma **nova questão** que seja **substancialmente diferente** da versão rejeitada. Foque em um aspecto diferente do conceito, use um cenário completamente novo ou mude a estrutura do problema. NÃO faça apenas uma simples paráfrase.
-#
-#**REGRAS OBRIGATÓRIAS:**
-#1. Siga todas as regras do formato de saída para o tipo de questão **{exercise_type}**.
-#2. A nova questão deve ser fiel ao Texto Fonte e pedagogicamente sólida.
-#
-#**Texto Fonte:**
-#{context}
-#"""
 
 EXERCISE_REWRITING_PROMPT = """
 Você é um designer instrucional sênior com a tarefa de diversificar avaliações. Sua missão é criar uma **nova questão** do tipo **{exercise_type}** sobre o **{concept}**.

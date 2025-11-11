@@ -1,8 +1,6 @@
 """Impleta as técnicas de geração de texto."""
 import random 
 import time 
-import json
-import re
 import itertools
 from langchain_community.callbacks import get_openai_callback
 from langchain_community.callbacks import get_openai_callback
@@ -13,12 +11,11 @@ from langchain_openai import ChatOpenAI
 from langchain.schema.output_parser import StrOutputParser
 import config
 from modules.prompts import (
-    SUMMARY_INTRO_PROMPT, SUMMARY_MAIN_CONCEPTS_PROMPT, SUMMARY_BULLETS_PROMPT,
+    SUMMARY_INTRO_PROMPT, SUMMARY_BULLETS_PROMPT,
     SUMMARY_APPLICATIONS_PROMPT,
     MULTIPLE_CHOICE_PROMPT, DISCURSIVE_PROMPT, OPEN_ENDED_CALC_DRAW_PROMPT,
-    OPEN_ENDED_SCENARIO_PROMPT, EXERCISE_CALC_CHECK_PROMPT, 
+    OPEN_ENDED_SCENARIO_PROMPT, 
     REVISE_EXERCISES_SIMILARITY_PROMPT, TRUE_FALSE_PROMPT,
-    FORMULA_EXTRACTOR_PROMPT, FORMULA_VALIDATION_PROMPT,
     CAPTION_FIGURE_PROMPT
 )
 

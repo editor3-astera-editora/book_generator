@@ -1,24 +1,46 @@
 LATEX_BULLETS_PROMPT = r"""
-Converta a seguinte lista de marcadores em Markdown para um ambiente itemize do LaTeX.
+Converta a lista de marcadores abaixo, escrita em Markdown, para um ambiente `itemize` do LaTeX **seguindo exatamente o formato especificado**.
 
-**Entrada:**
-- Item 1 com **negrito** falando sobre algum tópico \[V_{{2}} = 3*7\].
-- Item 2.
-
-**Sua Saída LaTeX:**
-\begin{{itemize}}
-   \item Item 1 com \textbf{{negrito}} e ambiente matemático $V_{{2}} = 3*7$.
-   \item Item 2.
-\end{{itemize}}
 ---
 
-**REGRAS OBRIGATÓRIAS:**
-1. Utilizar o ambiente itemize 
-2. Caso exista alguma equação ou símbolo matemático, colocar no ambiente $...$
+### EXEMPLO DE CONVERSÃO
 
-**LISTA PARA CONVERTER:**
+**Entrada:**
+- Bioeletricidade e Luigi Galvani: Luigi Galvani foi um cientista e médico italiano conhecido por suas descobertas sobre bioeletricidade.
+- Matemática e engenharias: as engenharias aplicam princípios matemáticos para resolver problemas técnicos e científicos.
+
+**Saída esperada:**
+\begin{{itemize}}
+   \item \textbf{{Bioeletricidade e Luigi Galvani}}: Luigi Galvani foi um cientista e médico italiano conhecido por suas descobertas sobre bioeletricidade.
+   \item \textbf{{Matemática e engenharias}}: as engenharias aplicam princípios matemáticos para resolver problemas técnicos e científicos.
+\end{{itemize}}
+
+---
+
+### REGRAS OBRIGATÓRIAS
+
+1. **Usar sempre** o ambiente `\begin{{itemize}} ... \end{{itemize}}`.
+2. Cada item deve começar com `\item` em nova linha e com indentação de três espaços.
+3. Converter **negritos Markdown** (`**texto**`) para `\textbf{{texto}}`.
+4. Converter *itálicos Markdown* (`*texto*` ou `_texto_`) para `\textit{{texto}}`.
+5. Converter qualquer equação, número, variável ou símbolo matemático entre colchetes `[]` ou notação como `E = mc^2` para o modo matemático `$...$`.
+6. Após cada termo principal destacado em negrito, **sempre adicionar dois pontos (`:`)**.
+7. A **primeira palavra após os dois pontos** deve:
+   - Começar com **letra maiúscula** se for **nome próprio, sigla ou início de frase com nome**;
+   - Começar com **letra minúscula** em todos os outros casos.
+8. **Não adicionar explicações, títulos ou comentários** — apenas o código LaTeX final.
+9. O texto deve ser fluente, formal e coerente, mantendo o conteúdo original de cada item.
+10. **Nunca** usar aspas, travessões ou marcadores `-` na saída final. Apenas o ambiente `itemize`.
+
+---
+
+### LISTA PARA CONVERTER:
 
 {bullet_list}
+
+---
+
+### SAÍDA (apenas código LaTeX):
 """
 
 
@@ -96,7 +118,7 @@ LATEX_OPEN_ENDED_PROMPT = PROMPT_HEADER + r"""
 **Entrada:**
 **Tipo:** Questão Aberta (Cálculo/Desenho)
 **Pergunta:**
-Uma loja vende camisetas a R$ 50 cada. Para compras acima de 10 unidades, a loja oferece um desconto de 10%. Se um cliente comprar 12 camisetas, qual será o valor total da compra? Mostre os passos do cálculo.
+Uma loja vende camisetas a R$ 50 cada. Para compras acima de 10 unidades, a loja oferece um desconto de 10\%. Se um cliente comprar 12 camisetas, qual será o valor total da compra? Mostre os passos do cálculo.
 **Resolução (Gabarito):**
 1. **Calcular o valor sem desconto:**
    \[

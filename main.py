@@ -1,5 +1,4 @@
 import os
-import re
 import sys
 import config
 import json
@@ -18,7 +17,7 @@ from modules.preprocessar_formulas import criar_mapa_de_formulas
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import CrossEncoderReranker
 from langchain_community.cross_encoders import HuggingFaceCrossEncoder
-
+ 
 def processar_capitulo_worker(chapter_data, livro_nome, formula_map):
     """
     Processa um único capítulo. Esta função é executada em um worker paralelo.
@@ -33,7 +32,7 @@ def processar_capitulo_worker(chapter_data, livro_nome, formula_map):
         if not chunks:
             logging.warning(f"{log_prefix} Capítulo vazio. Pulando.")
             return None
-
+        
         # --- Seção RAG ---
         vector_store = create_chapter_vector_store(chunks)
         base_retriever = vector_store.as_retriever(search_kwargs={"k": 20})
@@ -118,7 +117,7 @@ def processar_livro(livro_path, livro_nome):
         logging.error(f"Não foi possível extrair capítulos do livro '{livro_nome}'. Pulando.")
         return
 
-    MAX_WORKERS = 4
+    MAX_WORKERS = 5
     resultados_capitulos = []
     
     with ProcessPoolExecutor(max_workers=MAX_WORKERS) as executor:
@@ -169,7 +168,6 @@ def processar_livro(livro_path, livro_nome):
      # Prepara o conteúdo do arquivo .tex principal substituindo o placeholder CORRETO
     final_tex_content = MAIN_TEX_TEMPLATE.replace("{BODY_PLACEHOLDER}", final_latex_body)
     final_tex_content = final_tex_content.replace("{livro_nome}", book_title) # CORRIGIDO
-
     # Salva o Livro_Completo.tex processado
     tex_completo_path = os.path.join(pasta_final_tex, "Livro_Completo.tex")
     with open(tex_completo_path, "w", encoding="utf-8") as f:

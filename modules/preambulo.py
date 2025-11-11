@@ -227,8 +227,8 @@ MAIN_TEX_TEMPLATE = r"""
 \setlength{\cftbeforesubsecskip}{6pt}
 
 \geometry{
-  paperwidth=226.59mm,
-  paperheight=313.59mm,
+  paperwidth=221.6mm,
+  paperheight=291.6mm,
   left=33.295mm,
   right=33.295mm,
   top=60.595mm,
