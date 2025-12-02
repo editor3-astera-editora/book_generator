@@ -43,7 +43,6 @@ Converta a lista de marcadores abaixo, escrita em Markdown, para um ambiente `it
 ### SAÍDA (apenas código LaTeX):
 """
 
-
 PROMPT_HEADER = r"""
 Você é um especialista em formatação LaTeX. Sua tarefa é converter o exercício em Markdown fornecido para o formato LaTeX exato, seguindo o exemplo abaixo.
 

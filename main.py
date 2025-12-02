@@ -41,7 +41,7 @@ def processar_capitulo_worker(chapter_data, livro_nome, formula_map):
         retriever = ContextualCompressionRetriever(base_compressor=compressor, base_retriever=base_retriever)
         logging.info(f"{log_prefix} RAG criado com sucesso.")
 
-        # --- Seção de Geração (chamadas de API) ---
+        # --- Seção de Geração: chamadas de API ---
         chapter_tokens = {"prompt": 0, "completion": 0, "total": 0, "cost_usd": 0.0}
 
         figure_caption = None
@@ -110,12 +110,12 @@ def processar_livro(livro_path, livro_nome):
     with open(caminho_mapa, "r", encoding="utf-8") as f:
         formula_map = json.load(f)
     logging.info(f"Mapa com {len(formula_map)} fórmulas carregado com sucesso.")
-
+                                                                                                                                                                        
     pipeline_total_tokens = {"prompt": 0, "completion": 0, "total": 0, "cost_usd": 0.0}
     chapters = extract_chapters_from_word(livro_path)
     if not chapters:
         logging.error(f"Não foi possível extrair capítulos do livro '{livro_nome}'. Pulando.")
-        return
+        return  
 
     MAX_WORKERS = 5
     resultados_capitulos = []
@@ -162,10 +162,9 @@ def processar_livro(livro_path, livro_nome):
         with open(os.path.join(pasta_tex_capitulos, nome_arquivo), "r", encoding="utf-8") as f:
             partes_latex.append(f.read())
     final_latex_body = "\n\n".join(partes_latex)
-
     book_title = livro_nome.replace('_', ' ')
 
-     # Prepara o conteúdo do arquivo .tex principal substituindo o placeholder CORRETO
+    # Prepara o conteúdo do arquivo .tex principal substituindo o placeholder CORRETO
     final_tex_content = MAIN_TEX_TEMPLATE.replace("{BODY_PLACEHOLDER}", final_latex_body)
     final_tex_content = final_tex_content.replace("{livro_nome}", book_title) # CORRIGIDO
     # Salva o Livro_Completo.tex processado
@@ -225,7 +224,7 @@ def main():
         if not livro_path:
             logging.info("Fila vazia. Todos os livros foram processados.")
             break
-
+ 
         try:
             processar_livro(livro_path, livro_nome)
             
